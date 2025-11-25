@@ -26,19 +26,15 @@
       }
     },
     "components": {
-      "minecraft:physics": {},
       "minecraft:collision_box": {
         "width": 1,
         "height": 1
       },
-      "minecraft:interact": {
-        "interactions": [
-          {
-            "on_interact": {
-              "event": "wheel:start_spin"
-            }
-          }
-        ]
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
       }
     },
     "events": {

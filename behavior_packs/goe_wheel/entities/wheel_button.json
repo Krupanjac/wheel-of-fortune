@@ -12,6 +12,12 @@
         "width": 0.5,
         "height": 0.5
       },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
       "minecraft:interact": {
         "interactions": [
           {
