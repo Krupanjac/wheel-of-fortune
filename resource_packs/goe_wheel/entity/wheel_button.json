@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "goe:wheel_button",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/blocks/stone"
+      },
+      "geometry": {
+        "default": "geometry.wheel_button"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

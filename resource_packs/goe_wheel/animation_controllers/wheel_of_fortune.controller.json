@@ -1,0 +1,27 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.wheel.spin": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "transitions": [
+            {
+              "spinning": "query.property('goe:is_spinning')"
+            }
+          ]
+        },
+        "spinning": {
+          "animations": [
+            "spin"
+          ],
+          "transitions": [
+            {
+              "idle": "!query.property('goe:is_spinning')"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

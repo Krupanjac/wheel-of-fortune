@@ -1,0 +1,17 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.wheel.spin": {
+      "loop": false,
+      "animation_length": 4,
+      "bones": {
+        "wheel": {
+          "rotation": {
+            "0.0": [0, 0, 0],
+            "4.0": [0, 0, 3600]
+          }
+        }
+      }
+    }
+  }
+}

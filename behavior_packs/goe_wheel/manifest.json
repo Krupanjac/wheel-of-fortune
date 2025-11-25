@@ -1,0 +1,33 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Wheel of Fortune Behavior Pack",
+    "name": "Wheel of Fortune BP",
+    "uuid": "66c6e9a8-3093-462a-9c36-dbb052165822",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 0],
+    "capabilities": ["script"]
+  },
+  "modules": [
+    {
+      "description": "Wheel of Fortune Data",
+      "type": "data",
+      "uuid": "743f6949-53be-44b6-b326-3980074363a3",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "Wheel of Fortune Script",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "893f6949-53be-44b6-b326-3980074363a3",
+      "version": [1, 0, 0],
+      "entry": "scripts/wheel.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.3.0"
+    }
+  ]
+}

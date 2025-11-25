@@ -1,0 +1,80 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "goe:wheel_of_fortune",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "goe:is_spinning": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        }
+      }
+    },
+    "component_groups": {
+      "spinning_state": {
+        "minecraft:timer": {
+          "looping": false,
+          "time": 4,
+          "time_down_event": {
+            "event": "wheel:spin_finished"
+          }
+        }
+      }
+    },
+    "components": {
+      "minecraft:physics": {},
+      "minecraft:collision_box": {
+        "width": 1,
+        "height": 1
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "event": "wheel:start_spin"
+            }
+          }
+        ]
+      }
+    },
+    "events": {
+      "wheel:start_spin": {
+        "set_property": {
+          "goe:is_spinning": true
+        },
+        "add": {
+          "component_groups": [
+            "spinning_state"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "say §eThe wheel is spinning!",
+            "playsound mob.blaze.shoot @p[r=6]"
+          ]
+        }
+      },
+      "wheel:spin_finished": {
+        "set_property": {
+          "goe:is_spinning": false
+        },
+        "remove": {
+          "component_groups": [
+            "spinning_state"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "say §aThe wheel has stopped!",
+            "playsound random.levelup @p[r=6]",
+            "event entity @p[r=6] goe:give_reward"
+          ]
+        }
+      }
+    }
+  }
+}

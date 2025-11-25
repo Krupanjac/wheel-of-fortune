@@ -1,0 +1,24 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Wheel of Fortune Resource Pack",
+    "name": "Wheel of Fortune RP",
+    "uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 0]
+  },
+  "modules": [
+    {
+      "description": "Wheel of Fortune Resource Pack",
+      "type": "resources",
+      "uuid": "533f6949-53be-44b6-b326-3980074363a3",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "66c6e9a8-3093-462a-9c36-dbb052165822",
+      "version": [1, 0, 0]
+    }
+  ]
+}

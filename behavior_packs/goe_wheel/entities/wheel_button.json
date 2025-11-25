@@ -1,0 +1,35 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "goe:wheel_button",
+      "is_spawnable": true,
+      "is_summonable": true
+    },
+    "components": {
+      "minecraft:physics": {},
+      "minecraft:collision_box": {
+        "width": 0.5,
+        "height": 0.5
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "event": "wheel_button:activate"
+            }
+          }
+        ]
+      }
+    },
+    "events": {
+      "wheel_button:activate": {
+        "queue_command": {
+          "command": [
+            "event entity @e[type=goe:wheel_of_fortune,r=5] wheel:start_spin"
+          ]
+        }
+      }
+    }
+  }
+}

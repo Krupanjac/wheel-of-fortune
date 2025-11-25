@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "goe:wheel_of_fortune",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/wheel_of_fortune"
+      },
+      "geometry": {
+        "default": "geometry.wheel_of_fortune"
+      },
+      "scripts": {
+        "animate": [
+          "spin_controller"
+        ]
+      },
+      "animations": {
+        "spin": "animation.wheel.spin",
+        "spin_controller": "controller.animation.wheel.spin"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}
