@@ -1,18 +1,8 @@
 import { world } from "@minecraft/server";
 
 world.afterEvents.dataDrivenEntityTrigger.subscribe(ev => {
-        // Use world.sendMessage instead of world.runCommandAsync (not available)
-        world.sendMessage(`[GOE Wheel] DataDrivenEntityTrigger event received`);
-    // The DataDrivenEntityTrigger event uses the property `eventId` (not `id`).
-    // Using `ev.id` will be undefined, causing the handler to ignore events.
-    if (ev.eventId !== "goe:give_reward") {
-        const reported = ev.eventId ?? '<unknown>';
-            world.sendMessage(`[GOE Wheel] Ignored event: ${reported}`);
-        return;
-    }
-
-    // Add say that we triggered the event
-    world.sendMessage(`[GOE Wheel] Event goe:give_reward triggered`);
+    // Only handle our give_reward event
+    if (ev.eventId !== "goe:give_reward") return;
 
     const wheel = ev.entity;
     if (!wheel || wheel.typeId !== "goe:wheel_of_fortune") return;
@@ -33,44 +23,29 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe(ev => {
     }
     if (!player) return;
 
-    // Use randomness to determine reward (visual rotation isn't available here)
-    const rot = Math.random() * 360;
-
+    // Pick a reward
+    const r = Math.random() * 360;
     let reward;
-
-    // Normalize rotation to positive
-    let normalizedRot = rot;
-    if (normalizedRot < 0) normalizedRot += 360;
-
-    if (normalizedRot < 60) reward = "minecraft:emerald 3";
-    else if (normalizedRot < 120) reward = "minecraft:diamond 1";
-    else if (normalizedRot < 180) reward = "minecraft:iron_ingot 10";
-    else if (normalizedRot < 240) reward = "minecraft:gold_ingot 5";
-    else if (normalizedRot < 300) reward = "minecraft:cookie 5";
+    if (r < 60) reward = "minecraft:emerald 3";
+    else if (r < 120) reward = "minecraft:diamond 1";
+    else if (r < 180) reward = "minecraft:iron_ingot 10";
+    else if (r < 240) reward = "minecraft:gold_ingot 5";
+    else if (r < 300) reward = "minecraft:cookie 5";
     else reward = "minecraft:netherite_scrap 1";
 
-    // Diagnostics: announce which player and which reward were chosen
-    const playerName = player.nameTag || player.name || 'unknown';
     const displayReward = reward.replace(/^minecraft:/, '');
-    // Announce to server and to the player for debugging
-    // Use tellraw for the player to avoid cluttering global chat when possible
+
+    // Notify the player and give the reward. Keep logging minimal.
     try {
-           player.runCommand(`tellraw @s {"rawtext":[{"text":"[GOE Wheel] You were targeted for reward: ${displayReward}"}]}`);
+        player.runCommand(`tellraw @s {"rawtext":[{"text":"You won: ${displayReward}"}]}`);
+    } catch {}
+
+    try {
+        player.runCommand(`give @s ${reward}`);
+        player.runCommand(`playsound random.levelup @s`);
+        player.runCommand(`particle minecraft:happy_villager ~~~`);
     } catch (e) {
-           try {
-              player.runCommand(`say [GOE Wheel] Targeted player: ${playerName}`);
-              player.runCommand(`say [GOE Wheel] Reward chosen: ${displayReward}`);
-           } catch (e2) {
-              // As a last resort, broadcast to world
-              world.sendMessage(`[GOE Wheel] Targeted player: ${playerName}`);
-              world.sendMessage(`[GOE Wheel] Reward chosen: ${displayReward}`);
-           }
+        // Minimal fallback: broadcast an error once
+        world.sendMessage(`[GOE Wheel] Failed to give reward to player.`);
     }
-
-
-    // Give the reward and play effects
-           player.runCommand(`give @s ${reward}`);
-           player.runCommand(`playsound random.levelup @s`);
-           player.runCommand(`particle minecraft:happy_villager ~~~`);
 });
-           world.sendMessage(`[GOE Wheel] Failed to run reward commands for ${playerName}: ${e}`);
