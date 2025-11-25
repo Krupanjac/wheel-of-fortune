@@ -71,10 +71,11 @@
           "command": [
             "say §aThe wheel has stopped!",
             "playsound random.levelup @p[r=6]",
-            "event entity @p[r=6] goe:give_reward"
+            "event entity @s goe:give_reward"
           ]
         }
-      }
+      },
+      "goe:give_reward": {}
     }
   }
 }

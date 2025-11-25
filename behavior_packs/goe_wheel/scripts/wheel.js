@@ -3,18 +3,19 @@ import { world } from "@minecraft/server";
 world.afterEvents.dataDrivenEntityTrigger.subscribe(ev => {
     if (ev.id !== "goe:give_reward") return;
 
-    const player = ev.entity;
-    if (!player || player.typeId !== "minecraft:player") return;
+    const wheel = ev.entity;
+    if (!wheel || wheel.typeId !== "goe:wheel_of_fortune") return;
 
-    const wheel = [...world.getEntities({
-        type: "goe:wheel_of_fortune",
-        location: player.location,
-        maxDistance: 6
+    const player = [...world.getPlayers({
+        location: wheel.location,
+        maxDistance: 6,
+        closest: 1
     })][0];
-    if (!wheel) return;
+    
+    if (!player) return;
 
-    // Check rotation on Z axis (roll) since animation is on Z
-    const rot = wheel.getRotation().z % 360;
+    // Generate a random rotation since we can't get visual rotation and entity doesn't rotate on Z
+    const rot = Math.random() * 360;
 
     let reward;
 
