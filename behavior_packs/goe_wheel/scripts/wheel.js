@@ -95,10 +95,8 @@ system.runInterval(() => {
         // Maintain helper state
         if (helper) {
             try {
-                // Teleport helper to wheel location to keep them synced
                 helper.teleport(wheel.location);
             } catch (e) {
-                // Helper might be invalid
 
             }
         }
